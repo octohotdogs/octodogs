@@ -31,5 +31,20 @@ var getGoogleMaps = function(itinerary) {
       }),
     });
 
+    // Add click listener to bounce icon and display popup window
+    marker.addListener('click', function(e) {
+        toggleBounce()
+        marker.message.open(map, marker);
+    });
+
+    // Function to toggle bounce icon
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+
   })
 }
