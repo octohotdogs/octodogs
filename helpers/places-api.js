@@ -2,9 +2,10 @@ const config = require('../config.js');
 
 var getPlacesData = function(query, callback) {
 
-  // Create client
+  // Create client with a Promise constructor
   const googleMapsClient = require('@google/maps').createClient({
-    key: config.GMAPS_API_KEY
+    key: config.GMAPS_API_KEY,
+    Promise: Promise // 'Promise' is the native constructor.
   });
 
   // Set up parameters for the Places API request
@@ -28,14 +29,14 @@ var getPlacesData = function(query, callback) {
   };
 
   // Send request to the Places API and handle response
-  googleMapsClient.findPlace(params, function(response, err) {
-    if (err) {
-      console.log('places api call failure', err);
-    } else {
+  googleMapsClient.findPlace(params, callback).asPromise()
+    .then((response) => {
       console.log('places api call success', response.json);
       callback(response.json.candidates[0].geometry.location);
-    };
-  });
+    })
+    .catch((err) => {
+      console.log('places api call failure', err);
+    });
 
 }
 
