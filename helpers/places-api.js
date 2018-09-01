@@ -1,10 +1,10 @@
-const config = require('../config.js');
+require('dotenv').config();
 
 var getPlacesData = function(query, callback) {
 
   // Create client with a Promise constructor
   const googleMapsClient = require('@google/maps').createClient({
-    key: config.GMAPS_API_KEY,
+    key: process.env.GMAPS_API_KEY,
     Promise: Promise // 'Promise' is the native constructor.
   });
 
