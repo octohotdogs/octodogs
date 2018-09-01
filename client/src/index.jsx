@@ -11,6 +11,7 @@ import Itineraries from './components/Itineraries.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       iteneraries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', description: "australia"}],
       currentItinerary: 'sample itinerary'
@@ -19,7 +20,7 @@ class App extends React.Component {
     this.getItineraries = this.getItineraries.bind(this);
   }
 
-  getItineraries(){
+  getItineraries() {
   }
 
   // search (term) {
