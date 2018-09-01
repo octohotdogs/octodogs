@@ -4,25 +4,22 @@ import $ from 'jquery';
 
 import Map from './components/Map.jsx';
 import Header from './components/Header.jsx';
-import Itenenaries from './components/Itenenaries.jsx';
-//import RecentItenenary from './components/RecentItenenary.jsx';
+import Itineraries from './components/Itineraries.jsx';
+//import RecentItenerary from './components/RecentIterenary.jsx';
 //import Stop from './components/Stop.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itenenaries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', escription: "australia"}],
-      currentItenenary: 'sample itenenary'
+      iteneraries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', description: "australia"}],
+      currentItinerary: 'sample itinerary'
     }
-
     //this.search = this.search.bind(this);
-    this.getItenenaries = this.getItenenaries.bind(this);
-
+    this.getItineraries = this.getItineraries.bind(this);
   }
 
-  getItenenaries(){
-
+  getItineraries(){
   }
 
   // search (term) {
@@ -66,7 +63,7 @@ class App extends React.Component {
  //       <h1>Trip Planner<h1>
  //        <nav className="navbar">
  //          <div className="col-md-6 offset-md-3">
- //            <Itenenaries getItenenariesList={this.getItenenaries.bind(this)}/>
+ //            <Iteneraries getItenerariesList={this.getIteneraries.bind(this)}/>
  //          </div>
  //        </nav>
  //        <div className="row">
@@ -74,7 +71,7 @@ class App extends React.Component {
  //            <Map location={this.state.currentLocation}/>
  //          </div>
  //          <div className="col-md-5">
- //            <RecentItenenary currentItenanary={this.state.currentItenenary}/>
+ //            <RecentItenerary currentItenanary={this.state.currentItenerary}/>
  //          </div>
  //        </div>
  //      </div>)
@@ -93,7 +90,7 @@ class App extends React.Component {
     //     }).done(this.receiveData(data));
   }
 
-  updateCurrentItenenary() {
+  updateCurrentItinerary() {
 
   }
 
@@ -107,7 +104,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-5">
-            <Itenenaries itenenaries ={this.state.itenenaries}/>
+            <Itineraries itineraries ={this.state.iteneraries}/>
           </div>
           <div className="col-md-7">
             <Map />
