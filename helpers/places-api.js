@@ -27,6 +27,16 @@ var getPlacesData = function(query, callback) {
     ]
   };
 
+  // Send request to the Places API and handle response
+  googleMapsClient.findPlace(params, function(response, err) {
+    if (err) {
+      console.log('places api call failure', err);
+    } else {
+      console.log('places api call success', response.json);
+      callback(response.json.candidates[0].geometry.location);
+    };
+  });
+
 }
 
 module.exports.getPlacesData = getPlacesData;
