@@ -47,3 +47,5 @@ var getGoogleMaps = function(itinerary) {
 
   })
 }
+
+module.exports.getGoogleMaps = getGoogleMaps;
