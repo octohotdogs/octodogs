@@ -36,7 +36,7 @@ class App extends React.Component {
   //       });
   // }
 
-   receiveData(){
+  receiveData() {
   //   console.log("in receiveData");
 
   //   let self = this;
@@ -55,7 +55,7 @@ class App extends React.Component {
   //       self.setState({repos: myJson});
   //     });
   //     console.log("New state: ", this.state.repos);
-   }
+  }
 
   // console.log("here");
  //    return (<div>
@@ -76,21 +76,12 @@ class App extends React.Component {
  //      </div>)
 
 
-  componentDidMount(){
+  componentDidMount() {
     let self = this;
-    console.log("in component mount");
     this.receiveData();
-    // $.ajax({
-    //       type: "GET",
-    //       url: "http://localhost:1128/repos",
-    //       data: {username: term},
-    //     //  success: this.receiveData(data),
-    //       dataType: "json"
-    //     }).done(this.receiveData(data));
   }
 
   updateCurrentItinerary() {
-
   }
 
   render () {
@@ -115,5 +106,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
-
-
