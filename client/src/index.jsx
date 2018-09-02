@@ -5,13 +5,11 @@ import $ from 'jquery';
 import Map from './components/Map.jsx';
 import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
-//import RecentItenerary from './components/RecentIterenary.jsx';
-//import Stop from './components/Stop.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       iteneraries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', description: "australia"}],
       currentItinerary: 'sample itinerary'
@@ -96,8 +94,8 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-
+    return (
+      <div>
        <nav className="navbar">
           <div className="col-md-6 offset-md-3">
             <Header />
@@ -111,7 +109,8 @@ class App extends React.Component {
             <Map />
           </div>
         </div>
-      </div>)
+      </div>
+    )
   }
 }
 
