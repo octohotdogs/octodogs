@@ -17,7 +17,7 @@ class Map extends React.Component {
       getGoogleMaps(itineraries[0]);
       this.setState({
         map: true
-      })
+      });
     }
   }
 
