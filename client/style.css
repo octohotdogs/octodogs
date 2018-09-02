@@ -4,6 +4,15 @@ html, body, #app, #map {
   padding: 0;
 }
 
-#map {
+#app div {
   height: 100%;
+}
+
+#map {
+  margin: 0px 24px 24px 0px;
+}
+
+.itinerary {
+  height: 40px !important;
+  margin: 0px 0px 0px 6px;
 }

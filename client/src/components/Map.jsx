@@ -1,9 +1,6 @@
 import React from 'react';
 import { getGoogleMaps } from '../../../helpers/maps-api.js';
 
-// TODO: REPLACE THIS WITH THE ENDPOINT
-import { itineraries } from '../../../seed_data.js';
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +11,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     if (this.state.map === false) {
-      getGoogleMaps(itineraries[0]);
+      getGoogleMaps(this.props.currentItinerary);
       this.setState({
         map: true
       });
