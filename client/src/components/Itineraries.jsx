@@ -1,9 +1,9 @@
 import React from 'react';
-import ItineraryEntry from './ItineraryEntry.jsx';
+import Stop from './Stop.jsx';
 
 var Itineraries = (props) => (
   <div className="itinerary">
-    {props.itineraries.map(entry => <ItineraryEntry itinerary={entry} key={entry.id} />)}
+    {props.itineraries.map(entry => <Stop itinerary={entry} key={entry.id} />)}
   </div>
 );
 

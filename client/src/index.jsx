@@ -6,14 +6,18 @@ import Map from './components/Map.jsx';
 import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
 
+// TODO: REPLACE THIS WITH THE ENDPOINT
+import { itineraries } from '../../seed_data.js';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      iteneraries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', description: "australia"}],
-      currentItinerary: 'sample itinerary'
+      iteneraries: itineraries,
+      currentItinerary: itineraries[0]
     }
+
     //this.search = this.search.bind(this);
     this.getItineraries = this.getItineraries.bind(this);
   }
@@ -94,10 +98,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-5">
-            <Itineraries itineraries ={this.state.iteneraries}/>
+            <Itineraries itineraries={this.state.iteneraries}/>
           </div>
           <div className="col-md-7">
-            <Map />
+            <Map currentItinerary={this.state.currentItinerary}/>
           </div>
         </div>
       </div>
