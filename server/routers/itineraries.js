@@ -37,4 +37,6 @@ router.route('/:itinid/stops')
     res.send('POST on /api/itineraries/' + itinId + '/stops');
   });
 
+// TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops
+
 module.exports = router;
