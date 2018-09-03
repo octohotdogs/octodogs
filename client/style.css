@@ -1,0 +1,22 @@
+html, body, #app, #map {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#app div {
+  height: 100%;
+}
+
+#map {
+  margin: 0px 24px 24px 0px;
+}
+
+.btn-group {
+  height: 48px !important;
+}
+
+.itinerary {
+  height: 40px !important;
+  margin: 0px 0px 0px 6px;
+}

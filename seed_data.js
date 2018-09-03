@@ -1,10 +1,11 @@
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Types.ObjectId;
+// COMMENTED OUT FOR FRONT END
+// var mongoose = require('mongoose');
+// var ObjectId = mongoose.Types.ObjectId;
 
-var octodogUserId = new ObjectId;
-var tentacatUserId = new ObjectId;
-var helloWorldItinId = new ObjectId;
-var anotherJourneyItinId = new ObjectId;
+// var octodogUserId = new ObjectId;
+// var tentacatUserId = new ObjectId;
+// var helloWorldItinId = new ObjectId;
+// var anotherJourneyItinId = new ObjectId;
 
 module.exports.users = [
   {

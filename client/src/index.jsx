@@ -1,119 +1,75 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import $ from 'jquery';
 
 import Map from './components/Map.jsx';
 import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
-//import RecentItenerary from './components/RecentIterenary.jsx';
-//import Stop from './components/Stop.jsx';
+import NewItineraryModal from './components/NewItineraryModal.jsx';
+
+// TODO: REPLACE THIS WITH THE ENDPOINT
+import { itineraries } from '../../seed_data.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      iteneraries: [{id: 'test1', description: "oslo-helsinki"}, {id: 'test2', description: "australia"}],
-      currentItinerary: 'sample itinerary'
+      iteneraries: itineraries,
+      currentItinerary: itineraries[0],
+      showItineraryModal: false
     }
-    //this.search = this.search.bind(this);
+
     this.getItineraries = this.getItineraries.bind(this);
+    this.openNewItinerary = this.openNewItinerary.bind(this);
+    this.closeNewItinerary = this.closeNewItinerary.bind(this);
   }
 
-  getItineraries(){
+  openNewItinerary() {
+    console.log('Calling new itinerary');
+    this.setState({
+      showItineraryModal: true
+    });
   }
 
-  // search (term) {
-  //   console.log(`${term} was searched`);
+  closeNewItinerary() {
+    this.setState({
+      showItineraryModal: false
+    });
+  }
 
-  //     $.ajax({
-  //         type: "POST",
-  //         url: "http://localhost:1128/repos",
-  //         data: {username: term},
-  //       //  success: this.receiveData(data),
-  //         dataType: "json"
-  //       }).then((repos) => {
-  //        // this.receiveData();
-  //         this.setState({repos: repos});
-  //       });
-  // }
+  getItineraries() {
+  }
 
-   receiveData(){
-  //   console.log("in receiveData");
-
-  //   let self = this;
-  //   fetch('http://localhost:1128/repos', {
-  //         type: "GET",
-  //         //url: "http://localhost:1128/repos",
-  //         //data: {username: term},
-  //       //  success: this.receiveData(data),
-  //         dataType: "json"
-  //       })
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(myJson) {
-  //       console.log("now self:___:", self);
-  //       self.setState({repos: myJson});
-  //     });
-  //     console.log("New state: ", this.state.repos);
-   }
-
-  // console.log("here");
- //    return (<div>
- //       <h1>Trip Planner<h1>
- //        <nav className="navbar">
- //          <div className="col-md-6 offset-md-3">
- //            <Iteneraries getItenerariesList={this.getIteneraries.bind(this)}/>
- //          </div>
- //        </nav>
- //        <div className="row">
- //          <div className="col-md-7">
- //            <Map location={this.state.currentLocation}/>
- //          </div>
- //          <div className="col-md-5">
- //            <RecentItenerary currentItenanary={this.state.currentItenerary}/>
- //          </div>
- //        </div>
- //      </div>)
-
-
-  componentDidMount(){
-    let self = this;
-    console.log("in component mount");
-    this.receiveData();
-    // $.ajax({
-    //       type: "GET",
-    //       url: "http://localhost:1128/repos",
-    //       data: {username: term},
-    //     //  success: this.receiveData(data),
-    //       dataType: "json"
-    //     }).done(this.receiveData(data));
+  componentDidMount() {
   }
 
   updateCurrentItinerary() {
-
   }
 
   render () {
-    return (<div>
-
-       <nav className="navbar">
-          <div className="col-md-6 offset-md-3">
-            <Header />
-          </div>
-        </nav>
-        <div className="row">
-          <div className="col-md-5">
-            <Itineraries itineraries ={this.state.iteneraries}/>
-          </div>
-          <div className="col-md-7">
-            <Map />
-          </div>
-        </div>
-      </div>)
+    return (
+      <Grid>
+        <Header />
+          <Row className="show-grid">
+            <Col md={5}>
+              <ButtonGroup>
+                <Button bsStyle="primary">Add Stop</Button>
+                <Button>Change Itinerary</Button>
+                <Button onClick={this.openNewItinerary}>Create New Itinerary</Button>
+              </ButtonGroup>
+              <Itineraries itineraries={this.state.iteneraries}/>
+              <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
+            </Col>
+            <Col md={7}>
+              <Map currentItinerary={this.state.currentItinerary}/>
+            </Col>
+          </Row>
+     </Grid>
+    )
   }
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
-
-

@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
 class Header extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
@@ -40,29 +40,10 @@ class Header extends React.Component {
               Trip Planner
             </a>
           </Navbar.Brand>
-          <Navbar.Toggle />
         </Navbar.Header>
       </Navbar>
     );
   }
-
-
-  // render(buttonsInstance) {
-  //   return (
-  //     <Navbar fixedTop>
-  //       <Navbar.Header>
-  //         <Navbar.Brand>
-  //           <a href="/">
-  //             Trip Planner
-  //           </a>
-  //         </Navbar.Brand>
-  //         <Navbar.Toggle />
-  //         buttonsInstance
-  //       </Navbar.Header>
-
-  //     </Navbar>
-  //   );
-  // }
 }
 
 

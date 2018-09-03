@@ -1,14 +1,16 @@
 var getGoogleMaps = function(itinerary) {
-
+  console.log('CALLED MAPS FUNCTION');
   // Set initial location to first itinerary stop or middle of the US if blank itinerary
-  var initLocation = itinerary[0].location || {lat: 39.50, lng: -98.35};
+  var initLocation = itinerary.stops[0].location || {lat: 39.50, lng: -98.35};
 
   // Create map object centered at initial location
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: initLocation});
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4, 
+    center: initLocation
+  });
 
   // Loop through stops in itinerary and place markers on map
-  itinerary.forEach((stop, i) => {
+  itinerary.stops.forEach((stop, i) => {
 
     // Create marker object
     var marker = new google.maps.Marker({
@@ -48,3 +50,5 @@ var getGoogleMaps = function(itinerary) {
 
   })
 }
+
+module.exports.getGoogleMaps = getGoogleMaps;
