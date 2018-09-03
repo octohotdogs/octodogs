@@ -1,9 +1,12 @@
 import React from 'react';
+import Modal from 'react-bootstrap';
 import $ from 'jquery';
 
 class ItinerarySubmissionForm extends React.Component {
   constructor(props) {
     super(props);
+
+    var submit = this.submit.bind(this);
   }
 
   submit() {
@@ -47,7 +50,6 @@ class ItinerarySubmissionForm extends React.Component {
   }
 
   render() {
-    var submit = this.submit.bind(this);
     return(
       <div>
         <h1> New Itinerary </h1>
