@@ -40,7 +40,6 @@ class Header extends React.Component {
               Trip Planner
             </a>
           </Navbar.Brand>
-          <Navbar.Toggle />
         </Navbar.Header>
       </Navbar>
     );

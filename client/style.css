@@ -20,7 +20,3 @@ html, body, #app, #map {
   height: 40px !important;
   margin: 0px 0px 0px 6px;
 }
-
-.modal {
-  display: block;
-}
