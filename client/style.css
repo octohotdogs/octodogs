@@ -12,7 +12,15 @@ html, body, #app, #map {
   margin: 0px 24px 24px 0px;
 }
 
+.btn-group {
+  height: 48px !important;
+}
+
 .itinerary {
   height: 40px !important;
   margin: 0px 0px 0px 6px;
+}
+
+.modal {
+  display: block;
 }
