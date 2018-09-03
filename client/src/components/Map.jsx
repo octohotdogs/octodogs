@@ -19,23 +19,10 @@ class Map extends React.Component {
   }
 
   render() {
-    /*
-    const mapStyle = {
-      width: 700,
-      height: 550,
-      border: '1px gray'
-    };
-    */
-
     return (
       <div id="map"></div>
     );
-
   }
 }
-
-// Map.propTypes = {
-//   map: React.PropTypes.object.isRequired
-// };
 
 export default Map;
