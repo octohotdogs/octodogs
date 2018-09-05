@@ -1,9 +1,23 @@
 import React from 'react';
-import Stop from './Stop.jsx';
+import ItineraryEntry from './ItineraryEntry.jsx';
+import { ListGroup } from 'react-bootstrap';
 
 var Itineraries = (props) => (
   <div className="itinerary">
-    {props.itineraries.map(entry => <Stop itinerary={entry} key={entry.id} />)}
+
+    <h5> You have {props.itineraries.length} saved {props.itineraries.length === 1 ? 'itinerary' : 'itineraries'} </h5>
+
+    <ListGroup componentClass="ul">
+      {props.itineraries.map((itinerary, index) =>
+        <ItineraryEntry
+          itinerary={itinerary}
+          key={itinerary.id}
+          index={index}
+          handleItineraryClick={props.handleItineraryClick}
+        />
+      )}
+    </ListGroup>
+
   </div>
 );
 
@@ -12,9 +26,5 @@ var Itineraries = (props) => (
 Itineraries.propTypes = {
   itineraries: React.PropTypes.array.isRequired
 };
-
-// <div className="itinerary">
-//     {props.itinenaries.map(entry => <ItinenaryEntry itinenary={entry} key={entry.id.itinenary.toString()} updatePlayingVideo={props.updatePlayingVideo} /> )}
-//   </div>
 
 export default Itineraries;
