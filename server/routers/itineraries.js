@@ -40,7 +40,7 @@ router.route('/:itinid')
       }
       res.send('Itinerary updated.'); // change as needed
     */
-    res.send('POST on /api/itineraries/' + itinId); // DELETE ME WHEN DONE
+    res.send('PUT on /api/itineraries/' + itinId); // DELETE ME WHEN DONE
   });
 
 // Get all stops in an itinerary
@@ -67,7 +67,7 @@ router.route('/:itinid/stops')
       }
       res.send('Stop saved.'); // change as needed
     */
-    res.send('POST on /api/itineraries/' + itinId + '/stops'); // DELETE ME WHEN DONE
+    res.send('PUT on /api/itineraries/' + itinId + '/stops'); // DELETE ME WHEN DONE
   });
 
 // TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops/:index
