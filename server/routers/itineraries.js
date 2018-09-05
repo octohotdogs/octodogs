@@ -21,7 +21,7 @@ router.route('/:itinid')
   });
 
 router.route('/:itinid')
-  .post(function(req, res) {
+  .put(function(req, res) {
     let itinId = req.params.itinid;
     // TODO: This should update an itinerary
     // (should we use POST or PUT for this?)
@@ -41,12 +41,12 @@ router.route('/:itinid/stops')
   });
 
 router.route('/:itinid/stops')
-  .post(function(req, res) {
+  .put(function(req, res) {
     let itinId = req.params.itinid;
     // TODO: This should save a new stop to an itinerary
     res.send('POST on /api/itineraries/' + itinId + '/stops');
   });
 
-// TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops
+// TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops/:index
 
 module.exports = router;
