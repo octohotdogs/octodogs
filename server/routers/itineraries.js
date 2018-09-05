@@ -1,42 +1,75 @@
 const express = require('express');
 const router = express.Router();
-//const controller = require('../../db/controllers/itinerary.js');
+const controller = require('../../db/controllers/itinerary.js');
 
 router.route('/')
   .post(function(req, res) {
     // TODO: This should save a new itinerary to the database
-    res.send('POST on /api/itineraries');
+    // Uncomment the below and delete the extra res.send when the controller is ready.
+    /*
+    controller.saveNewItinerary(itinerary, function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      res.send('Itinerary saved.'); // change as needed
+    */
+    res.send('POST on /api/itineraries'); // DELETE ME WHEN DONE
   });
 
+// Get an itinerary by its ID
 router.route('/:itinid')
   .get(function(req, res) {
     let itinId = req.params.itinid;
-    // TODO: This should get an itinerary by its ID
-    res.send('GET on /api/itineraries/' + itinId);
+    controller.getItineraryById(itinId, function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      res.send(result[0]);
+    });
   });
 
 router.route('/:itinid')
-  .post(function(req, res) {
+  .put(function(req, res) {
     let itinId = req.params.itinid;
-    // TODO: This should update an itinerary
-    // (should we use POST or PUT for this?)
-    res.send('POST on /api/itineraries/' + itinId);
+    // TODO: This should update an itinerary non-stop information. Use PUT /:itinid/stops to save new stops
+    // Uncomment the below and delete the extra res.send when the controller is ready.
+    /*
+    controller.updateItineraryInfo(itinId, update, function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      res.send('Itinerary updated.'); // change as needed
+    */
+    res.send('PUT on /api/itineraries/' + itinId); // DELETE ME WHEN DONE
   });
 
+// Get all stops in an itinerary
 router.route('/:itinid/stops')
   .get(function(req, res) {
     let itinId = req.params.itinid;
-    // TODO: This should get all stops in an itinerary
-    res.send('GET on /api/itineraries/' + itinId + '/stops');
+    controller.getItineraryById(itinId, function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      res.send(result[0].stops);
+    });
   });
 
 router.route('/:itinid/stops')
-  .post(function(req, res) {
+  .put(function(req, res) {
     let itinId = req.params.itinid;
     // TODO: This should save a new stop to an itinerary
-    res.send('POST on /api/itineraries/' + itinId + '/stops');
+    // Uncomment the below and delete the extra res.send when the controller is ready.
+    /*
+    controller.saveNewStop(itinId, stop, function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      res.send('Stop saved.'); // change as needed
+    */
+    res.send('PUT on /api/itineraries/' + itinId + '/stops'); // DELETE ME WHEN DONE
   });
 
-// TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops
+// TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops/:index
 
 module.exports = router;
