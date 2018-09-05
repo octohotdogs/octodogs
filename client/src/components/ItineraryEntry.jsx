@@ -9,6 +9,7 @@ var ItineraryEntry = (props) => {
   return (
     <ListGroupItem
       header={props.itinerary.name}
+      onClick={() => props.handleItineraryClick(props.index)}
     >
       <div>{tripStart + ' - ' + tripEnd}</div>
       <div>{props.itinerary.description}</div>
