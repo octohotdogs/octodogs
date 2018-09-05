@@ -3,6 +3,7 @@ import Stop from './Stop.jsx';
 
 var Itineraries = (props) => (
   <div className="itinerary">
+    <h4> You have {props.itineraries.length} saved {props.itineraries.length === 1 ? 'itinerary' : 'itineraries'} </h4>
     {props.itineraries.map(entry => <Stop itinerary={entry} key={entry.id} />)}
   </div>
 );
@@ -12,9 +13,5 @@ var Itineraries = (props) => (
 Itineraries.propTypes = {
   itineraries: React.PropTypes.array.isRequired
 };
-
-// <div className="itinerary">
-//     {props.itinenaries.map(entry => <ItinenaryEntry itinenary={entry} key={entry.id.itinenary.toString()} updatePlayingVideo={props.updatePlayingVideo} /> )}
-//   </div>
 
 export default Itineraries;
