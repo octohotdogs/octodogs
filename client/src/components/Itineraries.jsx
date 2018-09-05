@@ -1,10 +1,10 @@
 import React from 'react';
-import Stop from './Stop.jsx';
+import ItineraryEntry from './ItineraryEntry.jsx';
 
 var Itineraries = (props) => (
   <div className="itinerary">
     <h4> You have {props.itineraries.length} saved {props.itineraries.length === 1 ? 'itinerary' : 'itineraries'} </h4>
-    {props.itineraries.map(entry => <Stop itinerary={entry} key={entry.id} />)}
+    {props.itineraries.map(entry => <ItineraryEntry itinerary={entry} key={entry.id} />)}
   </div>
 );
 
