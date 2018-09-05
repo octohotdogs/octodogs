@@ -1,10 +1,23 @@
 import React from 'react';
 import ItineraryEntry from './ItineraryEntry.jsx';
+import { ListGroup } from 'react-bootstrap';
 
 var Itineraries = (props) => (
   <div className="itinerary">
-    <h4> You have {props.itineraries.length} saved {props.itineraries.length === 1 ? 'itinerary' : 'itineraries'} </h4>
-    {props.itineraries.map(entry => <ItineraryEntry itinerary={entry} key={entry.id} />)}
+
+    <h5> You have {props.itineraries.length} saved {props.itineraries.length === 1 ? 'itinerary' : 'itineraries'} </h5>
+
+    <ListGroup componentClass="ul">
+      {props.itineraries.map((itinerary, index) =>
+        <ItineraryEntry
+          itinerary={itinerary}
+          key={itinerary.id}
+          index={index}
+          handleItineraryClick={props.handleItineraryClick}
+        />
+      )}
+    </ListGroup>
+
   </div>
 );
 
