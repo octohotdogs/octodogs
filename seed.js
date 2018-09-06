@@ -59,13 +59,53 @@ var saveItineraries = function(itineraries, userId) {
   return new Promise.all(saves);
 };
 
+var getItinIds = function(itinNames) {
+  var retrieves = itinNames.map(function(name) {
+    return new Promise(function(resolve, reject) {
+      db.Itinerary.find({ name: name }).select('_id').exec()
+      .then(function(id) {
+        resolve(id[0]['_id']);
+      })
+      .catch(function(err) {
+        reject(err);
+      });
+    });
+  });
+  return new Promise.all(retrieves);
+};
+
+var saveItinIdsToUser = function(itinIds, userId) {
+  return new Promise(function(resolve, reject) {
+    db.User.findById(userId, function(err, user) {
+      if (err) {
+        reject(err);
+      }
+      user.set({ itineraries: itinIds });
+      user.save(function(err) {
+        if (err) {
+          reject(err);
+        }
+        resolve(true);
+      });
+    });
+  });
+};
+
+var octoUserId = null;
 
 saveUsers(data.users)
   .then(function() {
     return getUserId('Octodog');
   })
-  .then(function(id) {
-    return saveItineraries(data.itineraries, id);
+  .then(function(userId) {
+    octoUserId = userId;
+    return saveItineraries(data.itineraries, userId);
+  })
+  .then(function() {
+    return getItinIds(data.itineraries.map((itinerary) => itinerary.name));
+  })
+  .then(function(itinIds) {
+    return saveItinIdsToUser(itinIds, octoUserId);
   })
   .then(function() {
     mongoose.disconnect();
