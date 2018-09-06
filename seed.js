@@ -38,7 +38,7 @@ var getUserId = function(username) {
   });
 };
 
-var saveItinerariesToUser = function(itineraries, userId) {
+var saveItineraries = function(itineraries, userId) {
   var saves = itineraries.map(function(itinerary) {
     return new Promise(function(resolve, reject) {
       itinerary.user = userId;
@@ -65,7 +65,7 @@ saveUsers(data.users)
     return getUserId('Octodog');
   })
   .then(function(id) {
-    return saveItinerariesToUser(data.itineraries, id);
+    return saveItineraries(data.itineraries, id);
   })
   .then(function() {
     mongoose.disconnect();
