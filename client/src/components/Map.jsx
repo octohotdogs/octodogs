@@ -19,6 +19,9 @@ class Map extends React.Component {
   }
 
   render() {
+    if (this.state.map === true) {
+      getGoogleMaps(this.props.currentItinerary);
+    }
     return (
       <div id="map"></div>
     );
