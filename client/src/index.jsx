@@ -8,6 +8,7 @@ import Map from './components/Map.jsx';
 import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
 import NewItineraryModal from './components/NewItineraryModal.jsx';
+import CurrentItineraryModal from './components/CurrentItineraryModal.jsx';
 
 // TODO: REPLACE THIS WITH THE ENDPOINT
 import { itineraries } from '../../seed_data.js';
@@ -19,12 +20,16 @@ class App extends React.Component {
     this.state = {
       itineraries: itineraries,
       currentItinerary: {},
-      showItineraryModal: false
+      showItineraryModal: false,
+      showCurrentItineraryModal: false
     }
 
     this.getItineraries = this.getItineraries.bind(this);
     this.openNewItinerary = this.openNewItinerary.bind(this);
     this.closeNewItinerary = this.closeNewItinerary.bind(this);
+    this.openCurrentItinerary = this.openCurrentItinerary.bind(this);
+    this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
+    this.handleItineraryClick = this.handleItineraryClick.bind(this);
   }
 
   openNewItinerary() {
@@ -40,10 +45,24 @@ class App extends React.Component {
     });
   }
 
+  openCurrentItinerary() {
+    console.log('Calling current itinerary');
+    this.setState({
+      showCurrentItineraryModal: true
+    });
+  }
+
+  closeCurrentItinerary() {
+    this.setState({
+      showCurrentItineraryModal: false
+    });
+  }
+
   handleItineraryClick(clickedIndex) {
     this.setState({
       currentItinerary: this.state.itineraries[clickedIndex]
     });
+    this.openCurrentItinerary();
   }
 
   getItineraries() {
@@ -66,7 +85,8 @@ class App extends React.Component {
                 <Button>Change Itinerary</Button>
                 <Button onClick={this.openNewItinerary}>Create New Itinerary</Button>
               </ButtonGroup>
-              <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick.bind(this)}/>
+              <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
+              <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
               <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
             </Col>
             <Col md={7}>
