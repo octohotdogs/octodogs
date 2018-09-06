@@ -14,7 +14,7 @@ var getGoogleMaps = function(itinerary) {
 
   if (itinerary.stops) {
     // Loop through stops in itinerary and place markers on map
-    itinerary.stops.forEach((stop, i) => {console.log('stop', stop.location)
+    itinerary.stops.forEach((stop, i) => {
 
       // Create marker object
       var marker = new google.maps.Marker({
