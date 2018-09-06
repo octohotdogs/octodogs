@@ -17,8 +17,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      iteneraries: itineraries,
-      currentItinerary: itineraries[0],
+      itineraries: itineraries,
+      currentItinerary: {},
       showItineraryModal: false
     }
 
@@ -40,8 +40,10 @@ class App extends React.Component {
     });
   }
 
-  handleItineraryClick(clickedItinerary) {
-    console.log(clickedItinerary);
+  handleItineraryClick(clickedIndex) {
+    this.setState({
+      currentItinerary: this.state.itineraries[clickedIndex]
+    });
   }
 
   getItineraries() {
@@ -64,7 +66,7 @@ class App extends React.Component {
                 <Button>Change Itinerary</Button>
                 <Button onClick={this.openNewItinerary}>Create New Itinerary</Button>
               </ButtonGroup>
-              <Itineraries itineraries={this.state.iteneraries} handleItineraryClick={this.handleItineraryClick.bind(this)} />
+              <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick.bind(this)}/>
               <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
             </Col>
             <Col md={7}>
