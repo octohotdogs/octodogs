@@ -65,10 +65,21 @@ class App extends React.Component {
     this.openCurrentItinerary();
   }
 
-  getItineraries() {
+  getItineraries(userId) {
+    $.get('/api/users/' + userId + '/itineraries', async (data) => {
+      // TODO: Replace static itinerary ids with data once db is hooked up
+      var itineraryPromises = ['5b91fed798187d3ae616929f', '5b91fed798187d3ae61692a3'].map(async (itinerary) => {
+        return await $.get('api/itineraries/' + itinerary);
+      });
+      var newItineraries = await Promise.all(itineraryPromises);
+      this.setState({
+        itineraries: newItineraries
+      })
+    });
   }
 
   componentDidMount() {
+    this.getItineraries('Octodog');
   }
 
   updateCurrentItinerary() {
