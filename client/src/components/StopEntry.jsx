@@ -3,7 +3,7 @@ import { ListGroupItem } from 'react-bootstrap';
 
 var StopEntry = (props) => {
 
-  var stopDate = props.stop.date.toString().slice(0,15)
+  var stopDate = props.stop.date.toString().slice(0,10)
 
   return (
     <ListGroupItem
