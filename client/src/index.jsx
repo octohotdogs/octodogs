@@ -10,15 +10,12 @@ import Itineraries from './components/Itineraries.jsx';
 import NewItineraryModal from './components/NewItineraryModal.jsx';
 import CurrentItineraryModal from './components/CurrentItineraryModal.jsx';
 
-// TODO: REPLACE THIS WITH THE ENDPOINT
-import { itineraries } from '../../seed_data.js';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      itineraries: itineraries,
+      itineraries: [],
       currentItinerary: {},
       showItineraryModal: false,
       showCurrentItineraryModal: false
@@ -46,7 +43,6 @@ class App extends React.Component {
   }
 
   openCurrentItinerary() {
-    console.log('Calling current itinerary');
     this.setState({
       showCurrentItineraryModal: true
     });
