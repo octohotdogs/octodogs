@@ -78,21 +78,17 @@ class App extends React.Component {
     return (
       <Grid>
         <Header />
-          <Row className="show-grid">
-            <Col md={5}>
-              <ButtonGroup>
-                <Button bsStyle="primary">Add Stop</Button>
-                <Button>Change Itinerary</Button>
-                <Button onClick={this.openNewItinerary}>Create New Itinerary</Button>
-              </ButtonGroup>
-              <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
-              <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
-              <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
-            </Col>
-            <Col md={7}>
-              <Map currentItinerary={this.state.currentItinerary}/>
-            </Col>
-          </Row>
+        <Row className="show-grid">
+          <Col md={5}>
+            <Button bsStyle="primary" onClick={this.openNewItinerary}>Create New Itinerary</Button>
+            <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
+            <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
+            <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
+          </Col>
+          <Col md={7}>
+            <Map currentItinerary={this.state.currentItinerary}/>
+          </Col>
+        </Row>
      </Grid>
     )
   }
