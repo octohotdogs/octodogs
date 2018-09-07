@@ -10,15 +10,12 @@ import Itineraries from './components/Itineraries.jsx';
 import NewItineraryModal from './components/NewItineraryModal.jsx';
 import CurrentItineraryModal from './components/CurrentItineraryModal.jsx';
 
-// TODO: REPLACE THIS WITH THE ENDPOINT
-import { itineraries } from '../../seed_data.js';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      itineraries: itineraries,
+      itineraries: [],
       currentItinerary: {},
       showItineraryModal: false,
       showCurrentItineraryModal: false
@@ -46,7 +43,6 @@ class App extends React.Component {
   }
 
   openCurrentItinerary() {
-    console.log('Calling current itinerary');
     this.setState({
       showCurrentItineraryModal: true
     });
@@ -65,10 +61,21 @@ class App extends React.Component {
     this.openCurrentItinerary();
   }
 
-  getItineraries() {
+  getItineraries(userId) {
+    $.get('/api/users/' + userId + '/itineraries', async (data) => {
+      // TODO: Replace static itinerary ids with data once db is hooked up
+      var itineraryPromises = ['5b91fed798187d3ae616929f', '5b91fed798187d3ae61692a3'].map(async (itinerary) => {
+        return await $.get('api/itineraries/' + itinerary);
+      });
+      var newItineraries = await Promise.all(itineraryPromises);
+      this.setState({
+        itineraries: newItineraries
+      })
+    });
   }
 
   componentDidMount() {
+    this.getItineraries('Octodog');
   }
 
   updateCurrentItinerary() {
