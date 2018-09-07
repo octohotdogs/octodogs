@@ -37,6 +37,40 @@ var getItineraryStops = function(itinId, callback) {
   });
 };
 
+// Save new itinerary
+/* itinerary must be of the format of: {
+    name: String,
+    description: String,
+    dates: {
+      start: Date,
+      end: Date,
+    },
+    privacy: String,
+  }
+*/
+var saveNewItinerary = function(itinerary, userId, callback) {
+  itinerary.user = userId; // this assumes the userId is an ObjectId, not a string!
+  itinerary['created_at'] = new Date();
+  itinerary['last_updated'] = new Date();
+  itinerary.stops = [];
+  var itinId = null;
+
+  db.Itinerary.create(itinerary)
+    .then(function(newItin) {
+      itinId = newItin['_id'];
+      return newItin.save();
+    })
+    .then(function() {
+      return db.User.findOneAndUpdate({ '_id': userId }, {$push: {itineraries: itinId}});
+    })
+    .then(function(item) {
+      callback(null, item);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+};
+
 module.exports = {
   getUserItineraries: getUserItineraries,
   getItineraryById: getItineraryById,
