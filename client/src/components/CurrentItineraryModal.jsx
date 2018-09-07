@@ -93,7 +93,6 @@ class CurrentItineraryModal extends React.Component {
           <Modal.Footer>
 
             <Button bsStyle="primary" onClick={this.submit}>Add Stop</Button>
-            <Button bsStyle="primary" onClick={this.submit}>Save</Button>
             <Button onClick={this.props.hide}>Close</Button>
 
           </Modal.Footer>
