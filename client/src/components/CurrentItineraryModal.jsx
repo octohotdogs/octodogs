@@ -57,7 +57,7 @@ var CurrentItineraryModal = (props) => (
       </Modal.Body>
       <Modal.Footer>
 
-        <Button bsStyle="primary">Add Stop</Button>
+        <Button bsStyle="primary" onClick={props.handleAddStopClick}>Add Stop</Button>
         <Button onClick={props.hide}>Close</Button>
 
       </Modal.Footer>
