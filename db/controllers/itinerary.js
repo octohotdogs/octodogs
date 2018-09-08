@@ -73,6 +73,28 @@ var saveNewItinerary = function(itinerary, userId, callback) {
     });
 };
 
+// Save new stop
+/* stop must be of the format of: {
+    name: String,
+    location: {
+      lat: Number,
+      lng: Number,
+      place_id: String,
+    },
+    date: Date,
+    notes: String,
+  }
+*/
+var saveNewStop = function(itinID, stop, callback) {
+  stop.comments = [];
+  db.Itinerary.findOneAndUpdate({ '_id': itinID }, { $push: {stops: stop} }, { new: true })
+    .then(function(updatedItin) {
+      callback(null, updatedItin);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+};
 
 module.exports = {
   getUserItineraries: getUserItineraries,
