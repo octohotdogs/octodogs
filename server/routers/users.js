@@ -20,7 +20,8 @@ router.route('/')
 router.route('/:username')
   .get(function(req, res) {
     let username = req.params.username;
-    userDB.getUser(usename)
+    console.log("user");
+    userDB.getUser(username)
     .then(function(result) {
       console.log("user", result);
       res.json(result);
