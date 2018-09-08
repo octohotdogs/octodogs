@@ -37,6 +37,65 @@ var getItineraryStops = function(itinId, callback) {
   });
 };
 
+// Save new itinerary
+/* itinerary must be of the format of: {
+    name: String,
+    description: String,
+    dates: {
+      start: Date,
+      end: Date,
+    },
+    privacy: String,
+  }
+*/
+var saveNewItinerary = function(itinerary, userId, callback) {
+  itinerary.user = userId; // this assumes the userId is an ObjectId, not a string!
+  itinerary['created_at'] = new Date();
+  itinerary['last_updated'] = new Date();
+  itinerary.stops = [];
+
+  var newlySavedItin = null;
+
+  db.Itinerary.create(itinerary)
+    .then(function(newItin) {
+      return newItin.save();
+    })
+    .then(function(savedItin) {
+      newlySavedItin = savedItin;
+      var itinId = savedItin['_id'];
+      return db.User.findOneAndUpdate({ '_id': userId }, {$push: {itineraries: itinId}});
+    })
+    .then(function() {
+      callback(null, newlySavedItin);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+};
+
+// Save new stop
+/* stop must be of the format of: {
+    name: String,
+    location: {
+      lat: Number,
+      lng: Number,
+      place_id: String,
+    },
+    date: Date,
+    notes: String,
+  }
+*/
+var saveNewStop = function(itinID, stop, callback) {
+  stop.comments = [];
+  db.Itinerary.findOneAndUpdate({ '_id': itinID }, { $push: {stops: stop} }, { new: true })
+    .then(function(updatedItin) {
+      callback(null, updatedItin);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+};
+
 module.exports = {
   getUserItineraries: getUserItineraries,
   getItineraryById: getItineraryById,
