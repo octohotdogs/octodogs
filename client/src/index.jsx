@@ -26,10 +26,10 @@ class App extends React.Component {
     this.getItineraries = this.getItineraries.bind(this);
     this.openNewItinerary = this.openNewItinerary.bind(this);
     this.closeNewItinerary = this.closeNewItinerary.bind(this);
-    this.openCurrentItinerary = this.openCurrentItinerary.bind(this);
-    this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
     this.handleItineraryClick = this.handleItineraryClick.bind(this);
+    this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
     this.handleAddStopClick = this.handleAddStopClick.bind(this);
+    this.closeAddStop = this.closeAddStop.bind(this);
   }
 
   openNewItinerary() {
@@ -45,8 +45,9 @@ class App extends React.Component {
     });
   }
 
-  openCurrentItinerary() {
+  handleItineraryClick(clickedIndex) {
     this.setState({
+      currentItinerary: this.state.itineraries[clickedIndex],
       showCurrentItineraryModal: true
     });
   }
@@ -67,13 +68,6 @@ class App extends React.Component {
     this.setState({
       showAddStopModal: false
     });
-  }
-
-  handleItineraryClick(clickedIndex) {
-    this.setState({
-      currentItinerary: this.state.itineraries[clickedIndex]
-    });
-    this.openCurrentItinerary();
   }
 
   getItineraries(userId) {
