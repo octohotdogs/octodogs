@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import $ from 'jquery';
 
 const modalStyle = {
@@ -21,6 +21,51 @@ const backdropStyle = {
 class AddStopModal extends React.Component {
   constructor(props) {
     super(props);
+
+    this.submit = this.submit.bind(this)
+  }
+
+  submit() {
+    if (this.hasValidInput()) {
+      var stopData = this.formatData();
+      this.props.save(stopData);
+    };
+  }
+
+  formatData() {
+    var stopData = {};
+
+    $('.stopData').each(function() {
+      stopData[$(this).attr('title')] = $(this).val();
+    });
+
+    stopData = {
+      name: stopData.Name,
+      query: stopData.Destination,
+      date: stopData.Date,
+      notes: stopData.Notes,
+      comments: stopData.Comments
+    };
+
+    return stopData;
+  }
+
+  hasValidInput() {
+    var isValid = true;
+    var errorFields = [];
+
+    $('.stopData').each(function() {
+      if (!$(this).val() || $(this).val().length >= 20) {
+        errorFields.push($(this).attr('title'));
+        isValid = false;
+      }
+    });
+
+    if (!isValid) {
+      alert('Invalid input for ' + errorFields.join(', ') + '.\nPlease enter again.');
+    };
+
+    return isValid;
   }
 
   render() {
@@ -37,10 +82,11 @@ class AddStopModal extends React.Component {
           <Modal.Title>Add New Stop</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>Destination: <input type="text" className="data" field="name"></input></div>
-          <div>Date: <input type="date" className="data" field="start"></input></div>
-          <div>Notes: <input type="text" className="data" field="desc"></input></div>
-          <div>Comments: <input type="text" className="data" field="privacy"></input></div>
+          <div>Name: <input type="text" className="stopData" title="Name"></input></div>
+          <div>Destination: <input type="text" className="stopData" title="Destination"></input></div>
+          <div>Date: <input type="date" className="stopData" title="Date"></input></div>
+          <div>Notes: <input type="text" className="stopData" title="Notes"></input></div>
+          <div>Comments: <input type="text" className="stopData" title="Comments"></input></div>
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" onClick={this.submit}>Save</Button>
