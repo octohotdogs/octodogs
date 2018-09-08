@@ -3,3 +3,5 @@ node_js:
   - "lts/*"
 services:
   - mongodb
+env:
+  - MONGODB_URI=127.0.0.1/itinisaver
