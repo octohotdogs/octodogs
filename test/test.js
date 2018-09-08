@@ -25,8 +25,8 @@ describe('Database', function() {
     });
 
     xit('Helper should return an error if the given user does not exist', function() {
-      // let userPromise = userController.getUser('Octocat');
-      return expect(userController.getUser('Octocat')).to.be.rejected;
+      let userPromise = userController.getUser('Octocat');
+      return expect(userPromise).to.be.rejected;
     });
   });
 
@@ -37,8 +37,8 @@ describe('Database', function() {
 
 describe('Server', function() {
   describe('Users', function() {
-    it('GET should return a user object given the user exists', function() {
-      return request('http://localhost:1337/api/users/Octodog').then(function(user) {
+    xit('GET should return a user object given the user exists', function() {
+      return request(`http://localhost:${process.env.PORT}/api/users/Octodog`).then(function(user) {
         let parsedUser = Promise.resolve(JSON.parse(user));
         return Promise.all([
           expect(parsedUser).to.eventually.have.property('name'),
