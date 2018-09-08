@@ -75,30 +75,8 @@ router.route('/:itinid/stops')
     let itinId = req.params.itinid;
     let stop = req.body.stop;
     let query = req.body.stop.name;
-    /*
     placesApi.getPlacesData(query, function(result) {
       stop.location = result;
-      console.log(stop);
-      //res.send(true);
-    });
-
-
-/*
-      stop.location = { lat: 47.6205063,
-     lng: -122.3492774,
-     place_id: '2d3d3592254d212ad01ce51620be345b480df9bb' };
-      console.log(stop);
-      controller.saveNewStop(itinId, stop, function(err, updatedItinerary) {
-        if (err) {
-          return console.error(err);
-        }
-        res.send(updatedItinerary);
-      });
- /*
-    */
-    placesApi.getPlacesData(query, function(result) {
-      stop.location = result;
-      console.log(stop);
       controller.saveNewStop(itinId, stop, function(err, updatedItinerary) {
         if (err) {
           return console.error(err);
