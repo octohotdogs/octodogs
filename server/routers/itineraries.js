@@ -68,7 +68,7 @@ router.route('/:itinid/stops')
 
 // Save a new stop to the itinerary
 /* Request bodies must be of the form
-   { stop: (see saveNewStop in the controllers file for more info) }
+   { stop: { name: String, date: Date, notes: String } }
 */
 router.route('/:itinid/stops')
   .put(jsonParser, function(req, res) {
