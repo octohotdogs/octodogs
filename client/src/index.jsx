@@ -89,6 +89,7 @@ class App extends React.Component {
             <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
           </Col>
           <Col md={7}>
+            <Map currentItinerary={this.state.currentItinerary}/>
           </Col>
         </Row>
      </Grid>
