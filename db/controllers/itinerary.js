@@ -16,21 +16,19 @@ var db = require('../index.js');
 */
 
 // Get all itineraries by a certain user. Requires user id, not username.
-var getUserItineraries = function(userId, callback) {
 
- // db.Itinerary.find({ user: userId }, callback);
-
- return new Promise(function(resolve, reject){
-    db.User.find({_id: userId}).select('itineraries').exec()
-      .then(function(err, results) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
+var getItineraryId = function(name) {
+  return new Promise(function(resolve, reject) {
+    db.Itinerary.findOne({ name: name }).select('_id').exec()
+      .then(function(id) {
+        resolve(id._id);
       })
+      .catch(function(err) {
+        reject(err);
+      });
   });
 };
+
 // Get the itinerary that corresponds to a particular id
 var getItineraryById = function(itinId, callback) {
   db.Itinerary.find({ '_id': itinId }, callback);
@@ -108,7 +106,6 @@ var saveNewStop = function(itinID, stop, callback) {
 };
 
 module.exports = {
-  getUserItineraries: getUserItineraries,
   getItineraryById: getItineraryById,
   getItineraryStops: getItineraryStops,
 };
