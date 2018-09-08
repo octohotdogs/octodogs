@@ -29,6 +29,7 @@ class App extends React.Component {
     this.handleItineraryClick = this.handleItineraryClick.bind(this);
     this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
     this.handleAddStopClick = this.handleAddStopClick.bind(this);
+    this.handleSaveStopClick = this.handleSaveStopClick.bind(this);
     this.closeAddStop = this.closeAddStop.bind(this);
   }
 
@@ -62,6 +63,12 @@ class App extends React.Component {
     this.setState({
       showAddStopModal: true
     });
+  }
+
+  handleSaveStopClick(stopData) {
+    console.log('stop saved', stopData)
+    // post request to server with stop data & callback to rerender
+    this.closeAddStop();
   }
 
   closeAddStop() {
@@ -100,7 +107,7 @@ class App extends React.Component {
               currentItinerary={this.state.currentItinerary}
               handleAddStopClick={this.handleAddStopClick}>
             </CurrentItineraryModal>
-            <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop}></AddStopModal>
+            <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop} save={this.handleSaveStopClick}></AddStopModal>
             <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
           </Col>
           <Col md={7}>
