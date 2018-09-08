@@ -6,15 +6,19 @@ const controller = require('../../db/controllers/itinerary.js');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
+// Save a new itinerary
+/* Request bodies must be of the form:
+   {username: String, itinerary: (see saveNewItinerary for details) }
+*/
 router.route('/')
   .post(jsonParser, function(req, res) {
     users.getUserId(req.body.username)
     .then(function(userId) {
-      controller.saveNewItinerary(req.body.itinerary, userId, function(err, result) {
+      controller.saveNewItinerary(req.body.itinerary, userId, function(err, newItinerary) {
         if (err) {
           return console.error(err);
         }
-        res.send(result);
+        res.send(newItinerary);
       });
     })
     .catch(function(err) {
@@ -61,15 +65,19 @@ router.route('/:itinid/stops')
     });
   });
 
+// Save a new stop to the itinerary
+/* Request bodies must be of the form
+   { stop: (see saveNewStop in the controllers file for more info) }
+*/
 router.route('/:itinid/stops')
   .put(jsonParser, function(req, res) {
     let itinId = req.params.itinid;
     let stop = req.body.stop;
-    controller.saveNewStop(itinId, stop, function(err, result) {
+    controller.saveNewStop(itinId, stop, function(err, updatedItinerary) {
       if (err) {
         return console.error(err);
       }
-      res.send(result);
+      res.send(updatedItinerary);
     });
   });
 
