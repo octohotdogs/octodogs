@@ -55,16 +55,12 @@ var createUser = function(userData) {
         db.User.create(userData)
         .then(function(result){
           resolve(result);
-        }
-        .catch(function(err) {
-          reject(err);
-        }));
+        });
       } else {
         reject("User " + userData.name + " exists in the system.");
       }
     })
     .catch(function(err){
-      console.log(err);
       reject(err);
     })
   });
@@ -75,20 +71,14 @@ var updateUser = function(userData) {
     db.User.findOne({name: userData.name})
     .then(function(user){
       if (!user) {
-        reject("User " + userData.name + " doesn't exist in the system.");
+        resolve("User " + userData.name + " doesn't exist in the system.");
       } else {
         user.set(userData)
         .then(function(result) {
-          user.save(function(err) {
-          if (err) {
-            reject(err);
-          }
-            resolve(true);
+          user.save(function(result) {
+            resolve("User updated.");
           });
         })
-        .catch(function(err){
-          reject(err);
-        });
       }
     })
     .catch(function(err){
