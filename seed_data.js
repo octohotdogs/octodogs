@@ -27,7 +27,7 @@ module.exports.users = [
   },
 ];
 
-// stop locations stolen from https://developers.google.com/places/web-service/search
+// stop locations taken from https://developers.google.com/places/web-service/search
 module.exports.itineraries = [
   {
     name: 'Hello World',

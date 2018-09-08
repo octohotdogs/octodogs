@@ -59,6 +59,18 @@ var saveItineraries = function(itineraries, userId) {
   return new Promise.all(saves);
 };
 
+// var getUserItineraries = function(itineraries, userId) {
+//   return new Promise(function(resolve, reject){
+//     db.User.find({_id: userId}.select('itineraries').exec()
+//       .then(function(results) {
+//         resolve(results[0]);
+//       })
+//       .catch(function(err){
+//         reject(err);
+//       })
+//   })
+// }
+
 var getItinIds = function(itinNames) {
   var retrieves = itinNames.map(function(name) {
     return new Promise(function(resolve, reject) {
