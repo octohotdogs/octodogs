@@ -10,7 +10,7 @@ var getPlacesData = function(query, callback) {
 
   // Set up parameters for the Places API request
   let params = {
-    input: 'space needle',
+    input: query,
     inputtype: 'textquery',
     fields: [
       'formatted_address',
@@ -29,10 +29,15 @@ var getPlacesData = function(query, callback) {
   };
 
   // Send request to the Places API and handle response
-  googleMapsClient.findPlace(params, callback).asPromise()
+  googleMapsClient.findPlace(params).asPromise()
     .then((response) => {
       console.log('places api call success', response.json);
-      callback(response.json.candidates[0].geometry.location);
+      var result = {
+        lat: response.json.candidates[0].geometry.location.lat,
+        lng: response.json.candidates[0].geometry.location.lng,
+        place_id: response.json.candidates[0].id
+      };
+      callback(result);
     })
     .catch((err) => {
       console.log('places api call failure', err);

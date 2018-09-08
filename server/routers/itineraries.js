@@ -1,19 +1,30 @@
 const express = require('express');
 const router = express.Router();
+const users = require('../../db/controllers/user.js');
 const controller = require('../../db/controllers/itinerary.js');
+const placesApi = require('../../helpers/places-api.js');
 
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+
+// Save a new itinerary
+/* Request bodies must be of the form:
+   {username: String, itinerary: (see saveNewItinerary for details) }
+*/
 router.route('/')
-  .post(function(req, res) {
-    // TODO: This should save a new itinerary to the database
-    // Uncomment the below and delete the extra res.send when the controller is ready.
-    /*
-    controller.saveNewItinerary(itinerary, function(err, result) {
-      if (err) {
-        return console.error(err);
-      }
-      res.send('Itinerary saved.'); // change as needed
-    */
-    res.send('POST on /api/itineraries'); // DELETE ME WHEN DONE
+  .post(jsonParser, function(req, res) {
+    users.getUserId(req.body.username)
+    .then(function(userId) {
+      controller.saveNewItinerary(req.body.itinerary, userId, function(err, newItinerary) {
+        if (err) {
+          return console.error(err);
+        }
+        res.send(newItinerary);
+      });
+    })
+    .catch(function(err) {
+      return console.error(err);
+    });
   });
 
 // Get an itinerary by its ID
@@ -55,21 +66,29 @@ router.route('/:itinid/stops')
     });
   });
 
+// Save a new stop to the itinerary
+/* Request bodies must be of the form
+   { stop: { name: String, date: Date, notes: String } }
+*/
 router.route('/:itinid/stops')
-  .put(function(req, res) {
+  .put(jsonParser, function(req, res) {
     let itinId = req.params.itinid;
-    // TODO: This should save a new stop to an itinerary
-    // Uncomment the below and delete the extra res.send when the controller is ready.
-    /*
-    controller.saveNewStop(itinId, stop, function(err, result) {
-      if (err) {
-        return console.error(err);
-      }
-      res.send('Stop saved.'); // change as needed
-    */
-    res.send('PUT on /api/itineraries/' + itinId + '/stops'); // DELETE ME WHEN DONE
+    let stop = req.body.stop;
+    let query = req.body.stop.name;
+    placesApi.getPlacesData(query, function(result) {
+      stop.location = result;
+      controller.saveNewStop(itinId, stop, function(err, updatedItinerary) {
+        if (err) {
+          return console.error(err);
+        }
+        res.send(updatedItinerary);
+      });
+    });
   });
 
 // TODO: Some kind of route to update a stop? Maybe PUT on /:itinid/stops/:index
+
+
+
 
 module.exports = router;
