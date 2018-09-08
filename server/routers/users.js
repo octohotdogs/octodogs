@@ -1,32 +1,65 @@
 const express = require('express');
 const router = express.Router();
+const itinDB = require('../../db/controllers/itinerary.js');
+const userDB = require('../../db/controllers/user.js');
 
 router.route('/')
   .post(function(req, res) {
     // TODO: This should save a new user to the database
-    res.send('POST on /api/users');
+    //console.log("body:", req.body);
+    userData = req.body;
+    userDB.createUser(userData)
+    .then(function(results){
+      res.send(results);
+    })
+    .catch(function(err) {
+      res.send(err);
+    });
   });
 
-router.route('/:userid')
+router.route('/:username')
   .get(function(req, res) {
-    let userId = req.params.userid;
-    // TODO: This should get a user's information by their ID
-    res.send('GET on /api/users/' + userId);
+    let username = req.params.username;
+    userDB.getUser(usename)
+    .then(function(result) {
+      console.log("user", result);
+      res.json(result);
+    })
+    .catch(function(err) {
+      res.json(err);
   });
+    // TODO: This should get a user's information by their username
+});
 
-router.route('/:userid')
+router.route('/:username')
   .post(function(req, res) {
-    let userId = req.params.userid;
+    let username = req.params.username;
+    let userData = req.body;
     // TODO: This should update a user's information
-    // (should we use POST or PUT for this?)
-    res.send('POST on /api/users/' + userId);
+    userDB.updateUser(userData)
+    .then(function(results){
+      res.send(results);
+    })
+    .catch(function(err) {
+      res.send(err);
+    });
   });
 
-router.route('/:userid/itineraries')
+router.route('/:username/itineraries')
   .get(function(req, res) {
-    let userId = req.params.userid;
     // TODO: This should get all itineraries by a certain user
-    res.send('GET on /api/users/' + userId + '/itineraries');
+    let username = req.params.username;
+    userDB.getUserId(username)
+    .then(function(result){
+      userDB.getUserItineraries(result)
+      .then(function(result){
+        res.json(result);
+      })
+    })
+    .catch(function(err){
+      console.log(err);
+      res.send(err);
+    });
   });
 
 module.exports = router;
