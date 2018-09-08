@@ -53,23 +53,26 @@ var saveNewItinerary = function(itinerary, userId, callback) {
   itinerary['created_at'] = new Date();
   itinerary['last_updated'] = new Date();
   itinerary.stops = [];
-  var itinId = null;
+
+  var newlySavedItin = null;
 
   db.Itinerary.create(itinerary)
     .then(function(newItin) {
-      itinId = newItin['_id'];
       return newItin.save();
     })
-    .then(function() {
+    .then(function(savedItin) {
+      newlySavedItin = savedItin;
+      var itinId = savedItin['_id'];
       return db.User.findOneAndUpdate({ '_id': userId }, {$push: {itineraries: itinId}});
     })
-    .then(function(item) {
-      callback(null, item);
+    .then(function() {
+      callback(null, newlySavedItin);
     })
     .catch(function(err) {
       callback(err, null);
     });
 };
+
 
 module.exports = {
   getUserItineraries: getUserItineraries,
