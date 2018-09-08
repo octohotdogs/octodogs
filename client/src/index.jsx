@@ -9,6 +9,7 @@ import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
 import NewItineraryModal from './components/NewItineraryModal.jsx';
 import CurrentItineraryModal from './components/CurrentItineraryModal.jsx';
+import AddStopModal from './components/AddStopModal.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ class App extends React.Component {
       itineraries: [],
       currentItinerary: {},
       showItineraryModal: false,
-      showCurrentItineraryModal: false
+      showCurrentItineraryModal: false,
+      showAddStopModal: false,
     }
 
     this.getItineraries = this.getItineraries.bind(this);
@@ -54,6 +56,12 @@ class App extends React.Component {
     });
   }
 
+  closeAddStop() {
+    this.setState({
+      showAddStopModal: false
+    });
+  }
+
   handleItineraryClick(clickedIndex) {
     this.setState({
       currentItinerary: this.state.itineraries[clickedIndex]
@@ -86,6 +94,7 @@ class App extends React.Component {
             <Button bsStyle="primary" onClick={this.openNewItinerary}>Create New Itinerary</Button>
             <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
             <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
+            <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop}></AddStopModal>
             <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
           </Col>
           <Col md={7}>
