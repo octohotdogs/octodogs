@@ -29,6 +29,7 @@ class App extends React.Component {
     this.openCurrentItinerary = this.openCurrentItinerary.bind(this);
     this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
     this.handleItineraryClick = this.handleItineraryClick.bind(this);
+    this.handleAddStopClick = this.handleAddStopClick.bind(this);
   }
 
   openNewItinerary() {
@@ -53,6 +54,12 @@ class App extends React.Component {
   closeCurrentItinerary() {
     this.setState({
       showCurrentItineraryModal: false
+    });
+  }
+
+  handleAddStopClick() {
+    this.setState({
+      showAddStopModal: true
     });
   }
 
@@ -93,7 +100,12 @@ class App extends React.Component {
           <Col md={5}>
             <Button bsStyle="primary" onClick={this.openNewItinerary}>Create New Itinerary</Button>
             <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
-            <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
+            <CurrentItineraryModal
+              show={this.state.showCurrentItineraryModal}
+              hide={this.closeCurrentItinerary}
+              currentItinerary={this.state.currentItinerary}
+              handleAddStopClick={this.handleAddStopClick}>
+            </CurrentItineraryModal>
             <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop}></AddStopModal>
             <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
           </Col>
