@@ -9,7 +9,7 @@ db.once('open', function() {
 });
 
 var userSchema = new Schema({
-  name: String,
+  name: {type: String, unique : true, required : true},
   bio: String,
   password: String,
   itineraries: [
