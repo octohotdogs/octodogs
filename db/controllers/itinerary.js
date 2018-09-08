@@ -108,4 +108,6 @@ var saveNewStop = function(itinID, stop, callback) {
 module.exports = {
   getItineraryById: getItineraryById,
   getItineraryStops: getItineraryStops,
+  saveNewItinerary: saveNewItinerary,
+  saveNewStop: saveNewStop
 };
