@@ -4,12 +4,15 @@ mongoose.Promise = require('bluebird');
 var db = require('../index.js');
 
 var getUserId = function(username) {
+  console.log("getuserid", username);
   return new Promise(function(resolve, reject) {
     db.User.findOne({ name: username }).select('_id').exec()
       .then(function(id) {
+        console.log("userid: ", id)
         resolve(id._id);
       })
       .catch(function(err) {
+        console.log("error")
         reject(err);
       });
   });
@@ -17,12 +20,10 @@ var getUserId = function(username) {
 
 var getUser = function(username) {
   return new Promise(function(resolve, reject) {
-    userDB.getUserId(username)
+    getUserId(username)
     .then(function(userId) {
-      console.log("user id", userId);
-       db.User.findById(userId, 'name bio').exec()
+       db.User.findById(userId).exec()
       .then(function(results) {
-        console.log("getUser: ", results)
         resolve(results);
       })
       .catch(function(err) {
@@ -31,7 +32,6 @@ var getUser = function(username) {
     });
   });
 };
-
 
 var getUserItineraries = function(userId) {
   return new Promise(function(resolve,reject) {
@@ -85,7 +85,6 @@ var updateUser = function(userData) {
       reject(err);
     })
   });
-
 };
 
 module.exports = {
