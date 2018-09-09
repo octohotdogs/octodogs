@@ -12,6 +12,7 @@ const jsonParser = bodyParser.json();
    {username: String, itinerary: (see saveNewItinerary for details) }
 */
 router.route('/')
+<<<<<<< HEAD
   .post(jsonParser, function(req, res) {
     users.getUserId(req.body.username)
     .then(function(userId) {
