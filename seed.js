@@ -11,15 +11,11 @@ var saveUsers = function(users) {
     return new Promise(function(resolve, reject) {
       db.User.create(user, function(err, entry) {
         if (err) {
+          console.log('WE GOT ERRORS');
           reject(err);
         }
-        entry.save(function(err) {
-          if (err) {
-            reject(err);
-          }
-          console.log('saving user ' + user.name);
-          resolve(true);
-        });
+        console.log('saving user ' + user.name);
+        resolve(true);
       });
     });
   });
