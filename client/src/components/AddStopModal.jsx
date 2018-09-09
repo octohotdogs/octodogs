@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import $ from 'jquery';
 
 const modalStyle = {
@@ -40,8 +40,7 @@ class AddStopModal extends React.Component {
     });
 
     stopData = {
-      name: stopData.Name,
-      query: stopData.Destination,
+      name: stopData.Destination,
       date: stopData.Date,
       notes: stopData.Notes,
       comments: stopData.Comments
@@ -55,7 +54,7 @@ class AddStopModal extends React.Component {
     var errorFields = [];
 
     $('.stopData').each(function() {
-      if (!$(this).val() || $(this).val().length >= 20) {
+      if (!$(this).val() || $(this).val().length >= 50) {
         errorFields.push($(this).attr('title'));
         isValid = false;
       }
@@ -82,7 +81,6 @@ class AddStopModal extends React.Component {
           <Modal.Title>Add New Stop</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>Name: <input type="text" className="stopData" title="Name"></input></div>
           <div>Destination: <input type="text" className="stopData" title="Destination"></input></div>
           <div>Date: <input type="date" className="stopData" title="Date"></input></div>
           <div>Notes: <input type="text" className="stopData" title="Notes"></input></div>
