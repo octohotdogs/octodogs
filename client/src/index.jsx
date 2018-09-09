@@ -33,6 +33,16 @@ class App extends React.Component {
     this.closeAddStop = this.closeAddStop.bind(this);
   }
 
+  getItineraries(userId) {
+    let serverRoute = '/api/users/' + userId + '/itineraries';
+
+    $.get(serverRoute, data => {
+      this.setState({
+        itineraries: data
+      });
+    });
+  }
+
   openNewItinerary() {
     console.log('Calling new itinerary');
     this.setState({
@@ -66,8 +76,20 @@ class App extends React.Component {
   }
 
   handleSaveStopClick(stopData) {
-    console.log('stop saved', stopData)
-    // post request to server with stop data & callback to rerender
+    let serverRoute = '/api/itineraries/' + this.state.currentItinerary._id + '/stops';
+    let params = { stop: stopData };
+
+    $.ajax({
+      method: "PUT",
+      url: serverRoute,
+      data: JSON.stringify(params),
+      contentType: 'application/json'
+    }).done(updatedItinerary => {
+      this.setState({
+        currentItinerary: updatedItinerary
+      });
+    });
+
     this.closeAddStop();
   }
 
@@ -77,20 +99,8 @@ class App extends React.Component {
     });
   }
 
-  getItineraries(userId) {
-    let serverRoute = '/api/users/' + userId + '/itineraries'
-    $.get(serverRoute, data => {
-      this.setState({
-        itineraries: data
-      });
-    });
-  }
-
   componentDidMount() {
     this.getItineraries('Octodog');
-  }
-
-  updateCurrentItinerary() {
   }
 
   render () {
