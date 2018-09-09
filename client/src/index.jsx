@@ -87,7 +87,7 @@ class App extends React.Component {
     }).done(updatedItinerary => {
       this.setState({
         currentItinerary: updatedItinerary
-      });
+      }, () => this.getItineraries('Octodog'));
     });
 
     this.closeAddStop();
