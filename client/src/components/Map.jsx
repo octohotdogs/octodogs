@@ -4,24 +4,20 @@ import { getGoogleMaps } from '../../../helpers/maps-api.js';
 class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      map: false
-    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.currentItinerary !== nextProps.currentItinerary;
   }
 
   componentDidMount() {
-    if (this.state.map === false) {
-      getGoogleMaps(this.props.currentItinerary);
-      this.setState({
-        map: true
-      });
-    }
+    getGoogleMaps(this.props.currentItinerary);
   }
 
   render() {
-    if (this.state.map === true) {
+    if (this.props.currentItinerary.name) {
       getGoogleMaps(this.props.currentItinerary);
-    }
+    };
     return (
       <div id="map"></div>
     );
