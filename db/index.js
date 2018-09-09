@@ -1,5 +1,6 @@
+require('dotenv').config();
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/itinisaver');
+mongoose.connect(process.env.MONGODB_URI);
 var Schema = mongoose.Schema;
 
 var db = mongoose.connection;
