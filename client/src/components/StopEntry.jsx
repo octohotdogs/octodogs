@@ -9,9 +9,9 @@ var StopEntry = (props) => {
     <ListGroupItem
       header={props.stop.name}
     >
-      <div>{stopDate}</div>
-      <div>{props.stop.notes}</div>
-      <div>{props.stop.comments}</div>
+      {stopDate}<br />
+      {props.stop.notes}<br />
+      {props.stop.comments}
     </ListGroupItem>
   );
 };
