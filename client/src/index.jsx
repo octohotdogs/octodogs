@@ -61,6 +61,11 @@ class App extends React.Component {
     this.openCurrentItinerary();
   }
 
+  addItinerary(data){
+    this.setState({ itineraries: [...this.state.itineraries, data] });
+    console.log(JSON.stringify(this.state.itineraries))
+  }
+
   getItineraries(userId) {
     let serverRoute = '/api/users/' + userId + '/itineraries'
     $.get(serverRoute, data => {
