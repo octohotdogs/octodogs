@@ -12,11 +12,11 @@ const jsonParser = bodyParser.json();
    {username: String, itinerary: (see saveNewItinerary for details) }
 */
 router.route('/')
-<<<<<<< HEAD
   .post(jsonParser, function(req, res) {
+    console.log("Route req.body:", req.body)
     users.getUserId(req.body.username)
     .then(function(userId) {
-      controller.saveNewItinerary(req.body.itinerary, userId, function(err, newItinerary) {
+      controller.saveNewItinerary(req.body, userId, function(err, newItinerary) {
         if (err) {
           return console.error(err);
         }

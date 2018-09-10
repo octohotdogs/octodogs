@@ -21,9 +21,9 @@ const backdropStyle = {
 class NewItineraryModal extends React.Component {
   constructor(props) {
     super(props);
-    this.data = {
+    this.itinerary = {
       name: '',
-      user: 'Octodog',
+      username: 'Octodog',
       description: '',
       dates: {
         start: new Date(),
@@ -40,14 +40,17 @@ class NewItineraryModal extends React.Component {
 
   submit() {
     if (this.hasValidInput()) {
-      console.log("data: ", JSON.stringify(this.data)); // UPDATE ME
+      console.log("data: ", JSON.stringify(this.itinerary)); // UPDATE ME
       $.ajax('/api/itineraries/', {
-          data : JSON.stringify(this.data),
+          data : JSON.stringify(this.itinerary),
           contentType : 'application/json',
           type : 'POST'})
       .done(function( data ) {
-        alert( "Data received: " + data );
-      });
+        ;
+      })
+      .catch(function(err) {
+        return console.error(err);
+      })
     }
   }
 
@@ -85,9 +88,9 @@ class NewItineraryModal extends React.Component {
   // }
 
   hasValidInput() {
-    for (var key in this.data) {
-      if (this.data.hasOwnProperty(key)) {
-        if(!this.data[key]) {
+    for (var key in this.itinerary) {
+      if (this.itinerary.hasOwnProperty(key)) {
+        if(!this.itinerary[key]) {
           alert("Please enter correct info for ", key);
           return false;
         }
@@ -99,18 +102,19 @@ class NewItineraryModal extends React.Component {
   handleChange(event) {
     // console.log(event.target.title);
     let title = event.target.title;
-    if (title === "start" || title === "end"){
-     // this.data.dates[title] = event.target.value;
-     _.set(this.data, 'dates.start', event.target.value);
+    if (title === "start"){
+     _.set(this.itinerary, 'dates.start', event.target.value);
+    } else if (title === "end") {
+       _.set(this.itinerary, 'dates.end', event.target.value);
     } else
-       this.data[title] = event.target.value;
-    console.log(this.data);
+       this.itinerary[title] = event.target.value;
+    console.log(this.itinerary);
   }
 
   handlePrivacyChange(event) {
     console.log(event);
-    if (event === 1) this.data.privacy = "Private";
-    if (event === 2) this.data.privacy = "Shared";
+    if (event === 1) this.itinerary.privacy = "Private";
+    if (event === 2) this.itinerary.privacy = "Shared";
   }
 
   render() {
@@ -135,7 +139,7 @@ class NewItineraryModal extends React.Component {
             End Date: <input type="date" className="data" title="end" onChange={this.handleChange}></input>
           </div>
           <div>
-            Privacy <ToggleButtonGroup name="privacy" defaultValue={1} onChange={this.handlePrivacyChange}>
+            Privacy <ToggleButtonGroup name="privacy"  className="data" defaultValue={1} onChange={this.handlePrivacyChange}>
                 <Radio value={1}>Private</Radio>
                 <Radio value={2}>Shared</Radio>
             </ToggleButtonGroup>

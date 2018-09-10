@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 mongoose.Promise = require('bluebird');
 var db = require('../index.js');
-var userCtrl = require('./user.js');
 
 /*
   Callbacks must take an err and a result
@@ -109,7 +108,6 @@ var saveNewStop = function(itinID, stop, callback) {
 module.exports = {
   getItineraryById: getItineraryById,
   getItineraryStops: getItineraryStops,
-<<<<<<< HEAD
   saveNewItinerary: saveNewItinerary,
   saveNewStop: saveNewStop
 };
