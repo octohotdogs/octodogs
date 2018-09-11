@@ -23,6 +23,7 @@ html, body, #app, #map {
 
 .modal-backdrop {
   background-color: #fff !important;
+  opacity: 0 !important;
 }
 
 .in.modal {
@@ -34,5 +35,4 @@ html, body, #app, #map {
   left: -337px;
   left: 100;
   width: 455px;
-  overflow: hidden;
 }
