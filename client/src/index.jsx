@@ -38,6 +38,7 @@ class App extends React.Component {
     let serverRoute = '/api/users/' + userId + '/itineraries';
 
     $.get(serverRoute, data => {
+      //console.log("data: ", data)
       this.setState({
         itineraries: data
       });
@@ -54,10 +55,9 @@ class App extends React.Component {
   handleSaveNewItinerary(newItin) {
 
    // this.setState({ itineraries: [...[newItin], this.state.itineraries] });
-
-   this.setState({
+    this.setState({
       itineraries: [newItin].concat(this.state.itineraries)
-  })
+    })
   //  this.handleItineraryClick(this.state.itineraries.length-1);
   }
 
@@ -113,7 +113,7 @@ class App extends React.Component {
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
-    
+
   componentDidMount() {
     this.getItineraries('Octodog');
   }

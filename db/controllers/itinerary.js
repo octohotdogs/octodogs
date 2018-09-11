@@ -62,6 +62,7 @@ var saveNewItinerary = function(itinerary, userId, callback) {
   itinerary['created_at'] = new Date();
   itinerary['last_updated'] = new Date();
   itinerary.stops = [];
+ console.log("itinerary", itinerary);
 
   var newlySavedItin = null;
 
@@ -94,6 +95,7 @@ var saveNewItinerary = function(itinerary, userId, callback) {
     notes: String,
   }
 */
+
 var saveNewStop = function(itinID, stop, callback) {
   stop.comments = [];
   db.Itinerary.findOneAndUpdate({ '_id': itinID }, { $push: {stops: stop} }, { new: true })
