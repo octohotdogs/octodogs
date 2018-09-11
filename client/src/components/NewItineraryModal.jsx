@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, DropdownButton, MenuItem, ToggleButtonGroup, Radio, ToggleButton} from 'react-bootstrap';
 import $ from 'jquery';
 
 const modalStyle = {
@@ -21,55 +21,71 @@ const backdropStyle = {
 class NewItineraryModal extends React.Component {
   constructor(props) {
     super(props);
+    this.data =
+    {
+      username: 'Octodog',
+      itinerary: {
+        name: '',
+        description: '',
+        dates: {
+          start: new Date(),
+          end: new Date(),
+        },
+        privacy: 'Private'
+      }
+    };
 
     this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handlePrivacyChange = this.handlePrivacyChange.bind(this);
   }
 
   submit() {
     if (this.hasValidInput()) {
-      var data = this.formatData();
-      console.log(data); // UPDATE ME
+      $.ajax('/api/itineraries/', {
+          data : JSON.stringify(this.data),
+          contentType : 'application/json',
+          type : 'POST'})
+      .done(data => {
+        this.props.save(data);
+      });
     }
   }
 
-  formatData() {
-    var data = {};
-
-    $('.data').each(function() {
-      data[$(this).attr('field')] = $(this).val();
-    });
-
-    data = {
-      name: data.name,
-      description: data.desc,
-      dates: {
-        start: new Date(data.start),
-        end: new Date(data.end),
-      },
-      privacy: data.privacy
-    };
-
-    return data;
+  hasValidInput() {
+    for (var key in this.data.itinerary) {
+      if (this.data.itinerary.hasOwnProperty(key)) {
+        if(!this.data.itinerary[key]) {
+          alert("Please enter correct info for ", key);
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
-  // TODO: elaborate this so that it only accepts specific string lengths, characters, etc
-  // handle the case of invalid form data more gracefully, in a way visible to the user
-  hasValidInput() {
-    var isValid = true;
-    $('.data').each(function() {
-      if (!$(this).val()) {
-        console.log('Invalid input for ' + $(this).attr('field'));
-        isValid = false;
-      }
-    });
-    return isValid;
+  handleChange(event) {
+    // console.log(event.target.title);
+    let title = event.target.title;
+    if (title === "start"){
+     _.set(this.data.itinerary, 'dates.start', event.target.value);
+    } else if (title === "end"){
+       _.set(this.data.itinerary, 'dates.end', event.target.value);
+    } else
+       this.data.itinerary[title] = event.target.value;
+  }
+
+  handlePrivacyChange(event) {
+    console.log(event);
+    if (event === 1) this.data.itinerary.privacy = "Private";
+    if (event === 2) this.data.itinerary.privacy = "Shared";
   }
 
   render() {
     return(
       <div>
-      <Modal 
-        show={this.props.show} 
+      <Modal
+        show={this.props.show}
         onHide={this.props.hide}
         aria-labelledby="ModalHeader"
         style={modalStyle}
@@ -80,21 +96,26 @@ class NewItineraryModal extends React.Component {
           <Modal.Title>Create New Itinerary</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>Name: <input type="text" className="data" field="name"></input></div>
-          <div>Description: <input type="text" className="data" field="desc"></input></div>
+          <div>Name: <input type="text" className="data" onChange={this.handleChange} title="name"></input></div>
+          <div>Description: <input type="text" className="data" title="description" onChange={this.handleChange}></input></div>
           <div>
-            Start Date: <input type="date" className="data" field="start"></input><br/>
-            End Date: <input type="date" className="data" field="end"></input>
+            Start Date: <input type="date" className="data" title="start" onChange={this.handleChange}></input><br/>
+            End Date: <input type="date" className="data" title="end" onChange={this.handleChange}></input>
           </div>
-          <div>Privacy Level: <input type="text" className="data" field="privacy"></input></div>
+          <div>
+            Privacy <ToggleButtonGroup name="privacy" defaultValue={1} onChange={this.handlePrivacyChange}>
+                <Radio value={1}>Private</Radio>
+                <Radio value={2}>Shared</Radio>
+            </ToggleButtonGroup>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={this.submit}>Save</Button>
+          <Button bsStyle="primary" onClick={this.submit}>Continue</Button>
           <Button onClick={this.props.hide}>Cancel</Button>
         </Modal.Footer>
       </Modal>
       </div>
-      
+
     )
   }
 }

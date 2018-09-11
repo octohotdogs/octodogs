@@ -64,5 +64,4 @@ var CurrentItineraryModal = (props) => (
     </Modal>
   </div>
 );
-
 export default CurrentItineraryModal;

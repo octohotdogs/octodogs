@@ -25,6 +25,7 @@ class App extends React.Component {
 
     this.getItineraries = this.getItineraries.bind(this);
     this.openNewItinerary = this.openNewItinerary.bind(this);
+    this.handleSaveNewItinerary = this.handleSaveNewItinerary.bind(this);
     this.closeNewItinerary = this.closeNewItinerary.bind(this);
     this.handleItineraryClick = this.handleItineraryClick.bind(this);
     this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
@@ -48,6 +49,16 @@ class App extends React.Component {
     this.setState({
       showItineraryModal: true
     });
+  }
+
+  handleSaveNewItinerary(newItin) {
+
+   // this.setState({ itineraries: [...[newItin], this.state.itineraries] });
+
+   this.setState({
+      itineraries: [newItin].concat(this.state.itineraries)
+  })
+  //  this.handleItineraryClick(this.state.itineraries.length-1);
   }
 
   closeNewItinerary() {
@@ -99,6 +110,10 @@ class App extends React.Component {
     });
   }
 
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+    
   componentDidMount() {
     this.getItineraries('Octodog');
   }
@@ -118,7 +133,9 @@ class App extends React.Component {
               handleAddStopClick={this.handleAddStopClick}>
             </CurrentItineraryModal>
             <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop} save={this.handleSaveStopClick}></AddStopModal>
-            <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
+            <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}
+            save={this.handleSaveNewItinerary}>
+            </NewItineraryModal>
           </Col>
           <Col md={7}>
             <Map currentItinerary={this.state.currentItinerary}/>
