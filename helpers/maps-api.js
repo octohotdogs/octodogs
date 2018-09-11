@@ -12,7 +12,7 @@ var getGoogleMaps = function(itinerary) {
   // Initialize map bounds for future autozoom/center
   var bounds  = new google.maps.LatLngBounds();
 
-  if (itinerary.stops) {
+  if (itinerary.stops && itinerary.stops.length) {
     // Loop through stops in itinerary and place markers on map
     itinerary.stops.forEach((stop, i) => {
 
@@ -20,6 +20,7 @@ var getGoogleMaps = function(itinerary) {
       var marker = new google.maps.Marker({
         position: stop.location,
         map: map,
+        label: 'Stop ' + (i + 1),
         // Blue icon for all stops except first
         icon: i === 0 ? null : i === itinerary.length - 1 ? 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' : 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         // Bouncy icon for first stop
@@ -61,7 +62,15 @@ var getGoogleMaps = function(itinerary) {
     // Auto-zoom & center map based on new bounds
     map.fitBounds(bounds);
     map.panToBounds(bounds);
-  }
+
+   }
+  //  else {//no stops
+  //   var loc = new google.maps.LatLng(initLocation.lat, initLocation.lng);
+  //   console.log(loc);
+  //   //bounds.extend(loc);
+  //   map.fitBounds(bounds);
+  //   map.panToBounds(bounds);
+  // }
 }
 
 module.exports.getGoogleMaps = getGoogleMaps;
