@@ -37,7 +37,6 @@ var getUserItineraries = function(userId) {
   return new Promise(function(resolve,reject) {
     db.User.findById(userId).populate('itineraries').exec()
       .then(function(results) {
-        console.log("user itineraries:", results);
         //per each get itinerary details
         resolve(results.itineraries);
       })

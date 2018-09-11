@@ -95,6 +95,7 @@ var saveNewItinerary = function(itinerary, userId, callback) {
     notes: String,
   }
 */
+
 var saveNewStop = function(itinID, stop, callback) {
   stop.comments = [];
   db.Itinerary.findOneAndUpdate({ '_id': itinID }, { $push: {stops: stop} }, { new: true })
