@@ -110,12 +110,11 @@ class App extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getItineraries('Octodog');
-  }
-
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    
+  componentDidMount() {
+    this.getItineraries('Octodog');
   }
 
   render () {
