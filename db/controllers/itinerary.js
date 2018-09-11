@@ -62,6 +62,7 @@ var saveNewItinerary = function(itinerary, userId, callback) {
   itinerary['created_at'] = new Date();
   itinerary['last_updated'] = new Date();
   itinerary.stops = [];
+ console.log("itinerary", itinerary);
 
   var newlySavedItin = null;
 
