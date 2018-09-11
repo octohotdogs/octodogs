@@ -9,6 +9,7 @@ import Header from './components/Header.jsx';
 import Itineraries from './components/Itineraries.jsx';
 import NewItineraryModal from './components/NewItineraryModal.jsx';
 import CurrentItineraryModal from './components/CurrentItineraryModal.jsx';
+import AddStopModal from './components/AddStopModal.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,15 +19,29 @@ class App extends React.Component {
       itineraries: [],
       currentItinerary: {},
       showItineraryModal: false,
-      showCurrentItineraryModal: false
+      showCurrentItineraryModal: false,
+      showAddStopModal: false,
     }
 
     this.getItineraries = this.getItineraries.bind(this);
     this.openNewItinerary = this.openNewItinerary.bind(this);
+    this.handleSaveNewItinerary = this.handleSaveNewItinerary.bind(this);
     this.closeNewItinerary = this.closeNewItinerary.bind(this);
-    this.openCurrentItinerary = this.openCurrentItinerary.bind(this);
-    this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
     this.handleItineraryClick = this.handleItineraryClick.bind(this);
+    this.closeCurrentItinerary = this.closeCurrentItinerary.bind(this);
+    this.handleAddStopClick = this.handleAddStopClick.bind(this);
+    this.handleSaveStopClick = this.handleSaveStopClick.bind(this);
+    this.closeAddStop = this.closeAddStop.bind(this);
+  }
+
+  getItineraries(userId) {
+    let serverRoute = '/api/users/' + userId + '/itineraries';
+
+    $.get(serverRoute, data => {
+      this.setState({
+        itineraries: data
+      });
+    });
   }
 
   openNewItinerary() {
@@ -36,14 +51,25 @@ class App extends React.Component {
     });
   }
 
+  handleSaveNewItinerary(newItin) {
+
+   // this.setState({ itineraries: [...[newItin], this.state.itineraries] });
+
+   this.setState({
+      itineraries: [newItin].concat(this.state.itineraries)
+  })
+  //  this.handleItineraryClick(this.state.itineraries.length-1);
+  }
+
   closeNewItinerary() {
     this.setState({
       showItineraryModal: false
     });
   }
 
-  openCurrentItinerary() {
+  handleItineraryClick(clickedIndex) {
     this.setState({
+      currentItinerary: this.state.itineraries[clickedIndex],
       showCurrentItineraryModal: true
     });
   }
@@ -54,24 +80,33 @@ class App extends React.Component {
     });
   }
 
-  handleItineraryClick(clickedIndex) {
+  handleAddStopClick() {
     this.setState({
-      currentItinerary: this.state.itineraries[clickedIndex]
+      showAddStopModal: true
     });
-    this.openCurrentItinerary();
   }
 
-  addItinerary(data){
-    this.setState({ itineraries: [...this.state.itineraries, data] });
-    console.log(JSON.stringify(this.state.itineraries))
-  }
+  handleSaveStopClick(stopData) {
+    let serverRoute = '/api/itineraries/' + this.state.currentItinerary._id + '/stops';
+    let params = { stop: stopData };
 
-  getItineraries(userId) {
-    let serverRoute = '/api/users/' + userId + '/itineraries'
-    $.get(serverRoute, data => {
+    $.ajax({
+      method: "PUT",
+      url: serverRoute,
+      data: JSON.stringify(params),
+      contentType: 'application/json'
+    }).done(updatedItinerary => {
       this.setState({
-        itineraries: data
-      });
+        currentItinerary: updatedItinerary
+      }, () => this.getItineraries('Octodog'));
+    });
+
+    this.closeAddStop();
+  }
+
+  closeAddStop() {
+    this.setState({
+      showAddStopModal: false
     });
   }
 
@@ -79,7 +114,8 @@ class App extends React.Component {
     this.getItineraries('Octodog');
   }
 
-  updateCurrentItinerary() {
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   render () {
@@ -90,8 +126,16 @@ class App extends React.Component {
           <Col md={5}>
             <Button bsStyle="primary" onClick={this.openNewItinerary}>Create New Itinerary</Button>
             <Itineraries itineraries={this.state.itineraries} handleItineraryClick={this.handleItineraryClick}/>
-            <CurrentItineraryModal show={this.state.showCurrentItineraryModal} hide={this.closeCurrentItinerary} currentItinerary={this.state.currentItinerary}></CurrentItineraryModal>
-            <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}></NewItineraryModal>
+            <CurrentItineraryModal
+              show={this.state.showCurrentItineraryModal}
+              hide={this.closeCurrentItinerary}
+              currentItinerary={this.state.currentItinerary}
+              handleAddStopClick={this.handleAddStopClick}>
+            </CurrentItineraryModal>
+            <AddStopModal show={this.state.showAddStopModal} hide={this.closeAddStop} save={this.handleSaveStopClick}></AddStopModal>
+            <NewItineraryModal show={this.state.showItineraryModal} hide={this.closeNewItinerary}
+            save={this.handleSaveNewItinerary}>
+            </NewItineraryModal>
           </Col>
           <Col md={7}>
             <Map currentItinerary={this.state.currentItinerary}/>

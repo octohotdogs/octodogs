@@ -21,17 +21,19 @@ const backdropStyle = {
 class NewItineraryModal extends React.Component {
   constructor(props) {
     super(props);
-    this.itinerary = {
-      name: '',
+    this.data =
+    {
       username: 'Octodog',
-      description: '',
-      dates: {
-        start: new Date(),
-        end: new Date(),
-      },
-      privacy: 'Private'
+      itinerary: {
+        name: '',
+        description: '',
+        dates: {
+          start: new Date(),
+          end: new Date(),
+        },
+        privacy: 'Private'
+      }
     };
-
 
     this.submit = this.submit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -40,57 +42,20 @@ class NewItineraryModal extends React.Component {
 
   submit() {
     if (this.hasValidInput()) {
-      console.log("data: ", JSON.stringify(this.itinerary)); // UPDATE ME
       $.ajax('/api/itineraries/', {
-          data : JSON.stringify(this.itinerary),
+          data : JSON.stringify(this.data),
           contentType : 'application/json',
           type : 'POST'})
-      .done(function( data ) {
-        ;
-      })
-      .catch(function(err) {
-        return console.error(err);
-      })
+      .done(data => {
+        this.props.save(data);
+      });
     }
   }
 
-  // formatData() {
-  //   var data = {};
-
-  //   $('.data').each(function() {
-  //     data[$(this).attr('title')] = $(this).val();
-  //   });
-
-  //   // data = {
-  //   //   name: data.name,
-  //   //   description: data.desc,
-  //   //   dates: {
-  //   //     start: new Date(data.start),
-  //   //     end: new Date(data.end),
-  //   //   },
-  //   //   privacy: data.privacy
-  //   // };
-
-  //   // return data;
-  // }
-
-  // TODO: elaborate this so that it only accepts specific string lengths, characters, etc
-  // handle the case of invalid form data more gracefully, in a way visible to the user
-  // hasValidInput() {
-  //   var isValid = true;
-  //   $('.data').each(function() {
-  //     if (!$(this).val()) {
-  //       console.log('Invalid input for ' + $(this).attr('field'));
-  //       isValid = false;
-  //     }
-  //   });
-  //   return isValid;
-  // }
-
   hasValidInput() {
-    for (var key in this.itinerary) {
-      if (this.itinerary.hasOwnProperty(key)) {
-        if(!this.itinerary[key]) {
+    for (var key in this.data.itinerary) {
+      if (this.data.itinerary.hasOwnProperty(key)) {
+        if(!this.data.itinerary[key]) {
           alert("Please enter correct info for ", key);
           return false;
         }
@@ -103,18 +68,17 @@ class NewItineraryModal extends React.Component {
     // console.log(event.target.title);
     let title = event.target.title;
     if (title === "start"){
-     _.set(this.itinerary, 'dates.start', event.target.value);
-    } else if (title === "end") {
-       _.set(this.itinerary, 'dates.end', event.target.value);
+     _.set(this.data.itinerary, 'dates.start', event.target.value);
+    } else if (title === "end"){
+       _.set(this.data.itinerary, 'dates.end', event.target.value);
     } else
-       this.itinerary[title] = event.target.value;
-    console.log(this.itinerary);
+       this.data.itinerary[title] = event.target.value;
   }
 
   handlePrivacyChange(event) {
     console.log(event);
-    if (event === 1) this.itinerary.privacy = "Private";
-    if (event === 2) this.itinerary.privacy = "Shared";
+    if (event === 1) this.data.itinerary.privacy = "Private";
+    if (event === 2) this.data.itinerary.privacy = "Shared";
   }
 
   render() {
@@ -139,7 +103,7 @@ class NewItineraryModal extends React.Component {
             End Date: <input type="date" className="data" title="end" onChange={this.handleChange}></input>
           </div>
           <div>
-            Privacy <ToggleButtonGroup name="privacy"  className="data" defaultValue={1} onChange={this.handlePrivacyChange}>
+            Privacy <ToggleButtonGroup name="privacy" defaultValue={1} onChange={this.handlePrivacyChange}>
                 <Radio value={1}>Private</Radio>
                 <Radio value={2}>Shared</Radio>
             </ToggleButtonGroup>
