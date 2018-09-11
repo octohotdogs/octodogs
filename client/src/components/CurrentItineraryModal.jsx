@@ -3,21 +3,12 @@ import StopEntry from './StopEntry.jsx';
 import { Modal, ListGroup, Button } from 'react-bootstrap';
 import $ from 'jquery';
 
-const backdropStyle = {
-  position: 'fixed',
-  top: 125, bottom: 0, left: 250, right: 0,
-  zIndex: '1000',
-  opacity: 1,
-  width: 460,
-};
-
 var CurrentItineraryModal = (props) => (
   <div>
     <Modal
       show={props.show}
       onHide={props.hide}
       aria-labelledby="ModalHeader"
-      backdropStyle={backdropStyle}
       animation={false}
       dialogClassName="custom-modal"
     >
