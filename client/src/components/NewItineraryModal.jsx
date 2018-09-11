@@ -41,6 +41,7 @@ class NewItineraryModal extends React.Component {
   }
 
   submit() {
+
     if (this.hasValidInput()) {
       $.ajax('/api/itineraries/', {
           data : JSON.stringify(this.data),
@@ -48,6 +49,7 @@ class NewItineraryModal extends React.Component {
           type : 'POST'})
       .done(data => {
         this.props.save(data);
+        this.props.hide();
       });
     }
   }
