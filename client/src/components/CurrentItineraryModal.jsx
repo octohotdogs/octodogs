@@ -41,7 +41,6 @@ var CurrentItineraryModal = (props) => (
         :
           <div>
             <h5> {props.currentItinerary.stops.length} {props.currentItinerary.stops.length === 1 ? 'stop' : 'stops'} on this itinerary</h5>
-
             <ListGroup componentClass="ul">
               {props.currentItinerary.stops.map((stop, index) =>
                 <StopEntry
@@ -64,4 +63,5 @@ var CurrentItineraryModal = (props) => (
     </Modal>
   </div>
 );
+
 export default CurrentItineraryModal;
