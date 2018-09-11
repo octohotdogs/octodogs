@@ -22,9 +22,17 @@ html, body, #app, #map {
 }
 
 .modal-backdrop {
-  background-color: rgba(225,225,225,0) !important;
+  background-color: #fff !important;
 }
 
 .in.modal {
   display: inline-flex !important;
+}
+
+.custom-modal {
+  top: 98px;
+  left: -337px;
+  left: 100;
+  width: 455px;
+  overflow: hidden;
 }
