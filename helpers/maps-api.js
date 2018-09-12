@@ -42,6 +42,7 @@ var getGoogleMaps = function(itinerary) {
       var loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
       bounds.extend(loc);
 
+
       // Add click listener to bounce icon and display popup window
       marker.addListener('click', function(e) {
           toggleBounce()
@@ -62,6 +63,7 @@ var getGoogleMaps = function(itinerary) {
     // Auto-zoom & center map based on new bounds
     map.fitBounds(bounds);
     map.panToBounds(bounds);
+    map.setZoom(16);
 
    }
   //  else {//no stops
