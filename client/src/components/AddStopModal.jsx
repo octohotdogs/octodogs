@@ -81,7 +81,7 @@ class AddStopModal extends React.Component {
           <Modal.Title>Add New Stop</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>Destination: <input type="text" className="stopData" title="Destination"></input></div>
+          <div>Destination: <input type="text" id="destinationTextField" ref="destination" className="stopData" title="Destination"></input></div>
           <div>Date: <input type="date" className="stopData" title="Date"></input></div>
           <div>Notes: <input type="text" className="stopData" title="Notes"></input></div>
           <div>Comments: <input type="text" className="stopData" title="Comments"></input></div>
