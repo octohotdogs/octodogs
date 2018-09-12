@@ -12,7 +12,6 @@
   "author": "Octodogs <https://github.com/octohotdogs>",
   "license": "Unlicensed",
   "devDependencies": {
-    "@google/maps": "^0.5.5",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
@@ -25,6 +24,7 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "body-parser": "^1.17.2",
     "bootstrap": "^4.1.3",
     "dotenv": "^6.0.0",
