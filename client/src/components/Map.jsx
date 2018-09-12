@@ -11,6 +11,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.currentItinerary);
     getGoogleMaps(this.props.currentItinerary);
   }
 
