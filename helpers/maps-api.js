@@ -60,10 +60,36 @@ var getGoogleMaps = function(itinerary) {
 
     });
 
+    // //===============
+
+    //   var infowindow = new google.maps.InfoWindow();
+    //   var service = new google.maps.places.PlacesService(map);
+
+    //     service.getDetails({
+    //       placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
+    //     }, function(place, status) {
+    //       if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //         var marker = new google.maps.Marker({
+    //           map: map,
+    //           position: place.geometry.location
+    //         });
+    //         google.maps.event.addListener(marker, 'click', function() {
+    //           infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+    //             'Place ID: ' + place.place_id + '<br>' +
+    //             place.formatted_address + '</div>');
+    //           infowindow.open(map, this);
+    //         });
+    //       }
+    //     });
+
+    // //===============
+
     // Auto-zoom & center map based on new bounds
     map.fitBounds(bounds);
     map.panToBounds(bounds);
-    map.setZoom(16);
+    if (itinerary.stops && (itinerary.stops.length === 1)) {
+      map.setZoom(map.getZoom()-5);
+    }
 
    }
   //  else {//no stops
