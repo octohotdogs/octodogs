@@ -2,22 +2,6 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import $ from 'jquery';
 
-const modalStyle = {
-  position: 'fixed',
-  zIndex: 1040,
-  top: 0, bottom: 0, left: 0, right: 0,
-  position: 'absolute',
-  width: 500,
-};
-
-const backdropStyle = {
-  position: 'fixed',
-  top: 0, bottom: 0, left: 0, right: 0,
-  zIndex: 'auto',
-  backgroundColor: '#000',
-  opacity: 0.5
-};
-
 class AddStopModal extends React.Component {
   constructor(props) {
     super(props);
@@ -73,9 +57,8 @@ class AddStopModal extends React.Component {
         show={this.props.show}
         onHide={this.props.hide}
         aria-labelledby="ModalHeader"
-        style={modalStyle}
-        backdropStyle={backdropStyle}
         animation={false}
+        dialogClassName="custom-modal"
       >
         <Modal.Header>
           <Modal.Title>Add New Stop</Modal.Title>
