@@ -87,9 +87,9 @@ var getGoogleMaps = function(itinerary) {
     // Auto-zoom & center map based on new bounds
     map.fitBounds(bounds);
     map.panToBounds(bounds);
-    if (itinerary.stops && (itinerary.stops.length === 1)) {
-      map.setZoom(map.getZoom()-5);
-    }
+    // if (itinerary.stops && (itinerary.stops.length === 1)) {
+    //   map.setZoom(map.getZoom()-5);
+    // }
 
    }
   //  else {//no stops
